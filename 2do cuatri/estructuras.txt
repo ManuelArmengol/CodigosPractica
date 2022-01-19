@@ -1,0 +1,79 @@
+#include <stdio.h>
+
+#define LEGAJO_LEN 8+1
+
+typedef strcut
+{
+	char * nombre;
+	char * apellido;
+	char legajo [LEGAJO_LEN];
+}alumno_t;
+
+typedef struct
+{
+	alumno_t * alumnos;
+	char cant_alumnos;
+	char * asignatura;
+}catedra_t;
+
+int main ()
+{
+	printf ("Ingrese la cantidad de alumnos:\n");
+	scanf ("%d", &cantidad);
+
+	cargar_alumno (&alumno);
+}
+
+void cargar_alumno (alumno_t * alumno)
+{
+	char string [100];
+
+	printf ("ingrese el legajo: \n");
+	scanf ("%s", alumno->legajo);
+
+	printf ("Ingrese el nommbre:\n");
+	scanf ("%s", &string);
+	alumno->nombre = (char *) malloc ((strlen(string)+1) * sizeof(char));
+	strcpy (alumno->nombre, string);
+	
+	printf ("Ingrese el apellido: \n");
+	scanf ("%s", &string);
+	alumno->apellido = (char *) malloc ((strlen(string)+1) * sizeof (char));
+	strcpy (alumno->apellido, string);
+}
+
+void cargar_catedra (catedra_t * catedra)
+{
+	char string [100];
+
+	printf ("Ingrese materia: \n");
+	scanf ("%s", &string);
+	catedra->asignatura = (char *) malloc ((strlen(string)+1) * sizeof (char));
+	strcpy (catedra->asignatura, string);
+
+	prinf ("Ingrese cantidad de alumnos: \n");
+	scanf ("%d", &catedra->cant_alumnos);
+	catedra->alumnos = (alumnos_t *) malloc (*(catedra->cant_alumnos) * sizeof (alumnos_t));
+
+	for (int i = 0;i < (catedra->cant_alumnos);i++)
+	{	
+		cargar_alumno (&catedra->alumnos[i]);
+	}
+}
+
+void print_alumno (alumno_t * alumno)
+{
+	printf ("Nombre: %s\n", alumno->nombre);
+	printf ("Apellido: %s\n", alumno->apellido);
+	printf ("Legajo: %s\n", alumno->legajo);
+}
+
+void print_catedra (catedra_t * catedra)
+{
+	printf ("Asignatura: %s\n", catedra->asignatura);
+	for (int i = 0;i < (catedra->cant_alumnos),i++)
+	{
+		printf ("Alumno[%d]: \n", i);
+		print_alumno (&catedra->alumnos[i]);
+	}
+}
